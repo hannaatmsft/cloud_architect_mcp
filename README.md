@@ -2,6 +2,18 @@
 
 A Model Context Protocol (MCP) server that provides cloud architecture design assistance through an iterative questioning process. This tool helps determine optimal Azure architectures by gathering requirements, constraints, and goals systematically.
 
+## Project Structure
+
+```
+├── cloud_arch.ts          # Main TypeScript source file
+├── dist/
+│   └── cloud_arch.js      # Compiled JavaScript output
+├── package.json           # Node.js dependencies and scripts
+├── tsconfig.json          # TypeScript configuration
+├── run_cloud_arch_server.sh  # Shell script for easy server startup
+└── README.md             # This file
+```
+
 ## Features
 
 - **Iterative requirement gathering**: Systematically collect cloud architecture requirements through guided questions
@@ -22,7 +34,7 @@ A Model Context Protocol (MCP) server that provides cloud architecture design as
 1. Clone this repository:
    ```
    git clone <repository-url>
-   cd cloud_architect_mcp_server
+   cd cloud_architect_mcp
    ```
 
 2. Install dependencies:
@@ -30,9 +42,31 @@ A Model Context Protocol (MCP) server that provides cloud architecture design as
    npm install
    ```
 
+3. Build the TypeScript code:
+   ```
+   npm run build
+   ```
+   
+   Or if you don't have a build script, compile manually:
+   ```
+   npx tsc
+   ```
+
 ## Usage
 
-You can run the server using the provided shell script:
+You can run the server in multiple ways:
+
+### Using Node.js directly (Recommended)
+
+```bash
+# With default settings (stdio transport)
+node dist/cloud_arch.js
+
+# With SSE transport on specific port
+node dist/cloud_arch.js --sse --port=8015
+```
+
+### Using the provided shell script
 
 ```bash
 # With default settings (stdio transport)
@@ -53,6 +87,48 @@ The server supports two transport modes:
 
 1. **stdio**: Default mode for terminal-based interactions
 2. **SSE (Server-Sent Events)**: For web-based applications and integration with AI platforms
+
+### Examples
+
+```bash
+# Run with stdio transport (default)
+node dist/cloud_arch.js
+
+# Run with SSE on default port (8015)
+node dist/cloud_arch.js --sse
+
+# Run with SSE on custom port
+node dist/cloud_arch.js --sse --port=8123
+
+# Run with custom port specified in your example
+node dist/cloud_arch.js --sse --port=801
+```
+
+## Development
+
+### Building the Project
+
+To compile the TypeScript source to JavaScript:
+
+```bash
+# Compile TypeScript to JavaScript
+npx tsc
+
+# Or if you have a build script in package.json
+npm run build
+```
+
+### Running in Development Mode
+
+For development with automatic recompilation:
+
+```bash
+# Run TypeScript directly (if ts-node is installed)
+npx ts-node-esm cloud_arch.ts
+
+# Or watch mode compilation
+npx tsc --watch
+```
 
 ## API Documentation
 
